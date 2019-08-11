@@ -4,6 +4,21 @@ import java.util.Arrays;
 
 public class Sorts {
 
+	/*
+	 * Helper method that swaps two elements in an array
+	 * 
+	 * @param arr - array to perform the swap operation on
+	 * 
+	 * @param iOne - index of first element in the swap
+	 * 
+	 * @param iTwo - index of second element in the swap
+	 */
+	public void swap(int[] arr, int iOne, int iTwo) {
+		int temp = arr[iOne];
+		arr[iOne] = arr[iTwo];
+		arr[iTwo] = temp;
+	}
+
 	public void mergeSort(int[] arr, int L, int R) {
 		// Check to make sure R-L > 1, which tells us if there is more than one element
 		// in
@@ -25,8 +40,8 @@ public class Sorts {
 		System.out.println("L: " + L);
 		System.out.println("R: " + R);
 		// FINAL PRODUCT GOES HERE, MERGE METHOD THAT ACTUALLY WORKS
-		//REFERENCE: https://www.geeksforgeeks.org/merge-sort/
-		
+		// REFERENCE: https://www.geeksforgeeks.org/merge-sort/
+
 		// Left arr has a length of (m+1 - L)
 		// Right arr has a length of (R+1-m+1) = (R-m)
 //		int[] rArr = new int[m+1-L];
@@ -64,14 +79,15 @@ public class Sorts {
 			// updated
 			k++;
 		}
-		
-		//Now we need to handle left over elements since we exit the first while loop after we finish looking through one array
-		while(h1 < lArr.length) {
+
+		// Now we need to handle left over elements since we exit the first while loop
+		// after we finish looking through one array
+		while (h1 < lArr.length) {
 			arr[k] = lArr[h1];
 			h1++;
 			k++;
 		}
-		while(h2 < rArr.length) {
+		while (h2 < rArr.length) {
 			arr[k] = rArr[h2];
 			h2++;
 			k++;
@@ -147,7 +163,35 @@ public class Sorts {
 //		merge(mergeTest, 0, 1, 2);
 //		System.out.println(Arrays.toString(mergeTest));
 //	}
-	
-	
+
+	public void quickSort(int[] arr, int L, int R) {
+		if (L < R) {
+			int P = partition(arr, L, R);
+
+			quickSort(arr, L, P - 1);
+			quickSort(arr, P + 1, R);
+
+		}
+	}
+
+	public int partition(int[] arr, int L, int R) {
+		// Lomuto partition scheme, pick last element of partition as pivot
+		int pivot = arr[R];
+		int pivInd = R;
+		// SPI - Smaller Part Index - keeps track of where we put values less than or
+		// equal to the pivot when we find them
+		int spi = L;
+		while (spi < pivInd) {
+			if (arr[pivInd - 1] > pivot) {
+				swap(arr, pivInd, pivInd - 1);
+				pivInd--;
+			} else if (arr[pivInd - 1] <= pivot) {
+				swap(arr, pivInd - 1, spi);
+				spi++;
+			}
+		}
+		return pivInd;
+
+	}
 
 }
