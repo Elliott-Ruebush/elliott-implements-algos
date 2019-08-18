@@ -1,4 +1,4 @@
-package sorts;
+package algos;
 
 import static org.junit.jupiter.api.Assertions.*;
 
